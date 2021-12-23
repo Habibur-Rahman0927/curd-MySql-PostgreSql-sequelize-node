@@ -39,11 +39,11 @@ exports.getSinglePost = (req, res)=>{
 // update post
 exports.updatePost = (req, res)=>{
     // let sql = `UPDATE post SET title = '${req.body.title}' WHERE id = ${req.params.id}`; // single update
-    let sql = `UPDATE post SET title='${req.body.title}',desc='${req.body.desc}' WHERE id ='${req.params.id}'`; // multipel update
-    // let sql = `UPDATE post SET ? WHERE id ='${req.params.id}'`;
+    // let sql = `UPDATE post SET title='${req.body.title}',desc='${req.body.desc}' WHERE id ='${req.params.id}'`; // multipel update
+    let sql = `UPDATE post SET ? WHERE id ='${req.params.id}'`;
     const title = req.body.title;
     const desc = req.body.desc;
-    const query = connection.query(sql,/* {title,desc} , */(err, result) => {
+    const query = connection.query(sql,{title,desc} ,(err, result) => {
         if(err) throw err;
         res.json({post:result});
     })

@@ -3,10 +3,7 @@ const router = express.Router();
 const {post,getPost,getSinglePost,updatePost,deletePost} = require('../controller/controller')
 
 
-router.post('/post',post);
-router.get('/post',getPost);
-router.get('/post/:id',getSinglePost);
-router.put('/post/:id',updatePost);
-router.delete('/post/:id',deletePost);
+router.route('/post').post(post).get(getPost);
+router.route('/post/:id').get(getSinglePost).put(updatePost).delete(deletePost);
 
 module.exports = router;

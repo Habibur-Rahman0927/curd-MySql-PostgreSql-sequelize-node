@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const connection = require('./db/db');
 const router = require('./routes/routes');
-
+const sequelize = require('./config/sqDB')
 const app = express();
 const PORT = 5500;
 
@@ -25,4 +25,13 @@ app.get('/', (req,res) => {
 
 app.use('/api/v1', router)
 
-app.listen(PORT, () => console.log(`server is runing on port ${PORT}`));
+sequelize
+    // .sync({force: true})
+    .sync()
+    .then(resut => {
+        app.listen(PORT, () => console.log(`server is runing on port ${PORT}`));
+    })
+    .catch(err => {
+        console.log(err)
+    })
+

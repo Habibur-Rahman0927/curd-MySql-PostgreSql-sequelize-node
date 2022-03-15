@@ -21,7 +21,7 @@ const sequelize = new Sequelize('Posts', 'root', 'asdf1234', {
 const connection = async() => {
   try {
     await sequelize.authenticate();
-    console.log('Connection has been established successfully.');
+    console.log('Connection has been established successfully. mysql');
   } catch (error) {
     console.error('Unable to connect to the database:', error);
   }

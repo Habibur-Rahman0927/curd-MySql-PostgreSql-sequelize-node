@@ -2,7 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const connection = require('./db/db');
 const router = require('./routes/routes');
-const sequelize = require('./config/sqDB')
+// const sequelize = require('./config/sqDB')
+const sequelize = require('./config/pgDB')
 const app = express();
 const PORT = 5500;
 

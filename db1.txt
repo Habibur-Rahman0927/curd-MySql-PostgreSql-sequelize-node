@@ -1,0 +1,430 @@
+SHOW DATABASE; 
+
+CREATE DATABASE <NAME>;
+
+DROP DATABASE <NAME>;
+
+USE <NAME>; // select database name which is you use in command line
+
+SELECT DATABASE(); // USE DATABASE IS SELECT DATABASE
+
+
+CREATE TABLE <TABLE_NAME> (
+	<COLUMNS_NAME> varchar(100),
+    <COLUMNS_NAME> INT,
+    <COLUMNS_NAME> TIMESTAMP DEFAULT NOW() ON UPDATE CURRENT_TIMESTAMP
+
+)
+
+SHOW TABLES; // show tables 
+
+SHOW COLUMNS FROM <NAME>; // show columns from table names
+
+or use 
+
+DESC <NAME>; // line no 19 are same 
+
+DROP TABLE <NAME> // delete tables 
+
+INSERT INTO <TABLE_NAME> (columns, columns) VALUES (value, value);
+
+SELECT * FROM <TABLE_NAME>;
+
+INSERT INTO <TABLE_NAME> (columns, columns) VALUES (value, value),(value, value),(value, value),(value, value); // insert many data 
+
+SHOW WARNINGS;
+
+
+CREATE TABLE <NAME>(
+	value varchar(100) NOT NULL, // field required
+    value INT NOT NUlL
+);
+
+
+CREATE TABLE <NAME>(
+	value varchar(100) NOT NULL, 
+    value INT NOT NUlL default 99 // set default value
+);
+
+
+CREATE TABLE <TABLE_NAME>(
+	id INT NOT NULL,
+    value VARCHAR(100) NOT NULL,
+    value INT,
+	PRIMARY KEY(id) // added PRIMARY KEY
+)
+
+CREATE TABLE <TABLE_NAME>(
+	id INT NOT NULL AUTO_INCREMENT, // AUTO AUTO_INCREMENT PRIMARY KEY
+    value VARCHAR(100) NOT NULL,
+    value INT,
+	PRIMARY KEY(id) 
+)
+
+
+*** select ***
+
+SELECT <COLUMNS_NAME> FROM <TABLE_NAME>;
+
+SELECT <MULIT_COLUMNS_NAME> FROM <TABLE_NAME>;
+
+*** where ***
+
+SELECT * FROM <TABLE_NAME> WHERE value = ?;
+
+*** Aliases/ as value ***
+
+SELECT value as Anyvalue FROM <TABLE_NAME>;
+
+
+*** update ***
+SET SQL_SAFE_UPDATES = 0;// update error handle 
+
+UPDATE <TABLE_NAME> SET <COLUMNS_NAME>=VALUES WHERE <COLUMNS_NAME>=VALUES;
+
+*** Delete *** 
+DELETE FROM <TABLE_NAME>;
+DELETE FROM <TABLE_NAME> WHERE <COLUMNS_NAME>=?;
+
+
+*** CONCAT ***
+SELECT CONCAT(<COLUMNS_NAME>, ' ', <COLUMNS_NAME>) FROM <TABLE_NAME>;
+
+*CONCAT_ws= contact with spereator
+SELECT CONCAT('-', <COLUMNS_NAME>, <COLUMNS_NAME>) FROM <TABLE_NAME>;
+
+
+*** replace ***
+
+SELECT REPLACE(<COLUMNS_NAME>, VALUE/<COLUMNS_NAME>, VALUE) FROM <TABLE_NAME>;
+
+*** revers ***
+SELECT REVERSE(<COLUMNS_NAME>) FROM <TABLE_NAME>;
+
+*** char_length ***
+SELECT value, CHAR_LENGHT(value) as value from <TABLE_NAME>;
+
+*** upper and lower ***
+SELECT UPPER(<COLUMNS_NAME>) from <TABLE_NAME>;
+
+*** distinct ***
+
+SELECT DISTINCT <COLUMNS_NAME> FROM <TABLE_NAME>
+
+
+*** order by ***
+
+SELECT <COLUMNS_NAME> FROM <TABLE_NAME> ORDER BY <COLUMNS_NAME> // default ascnding
+
+SELECT <COLUMNS_NAME> FROM <TABLE_NAME> ORDER BY <COLUMNS_NAME> DESC //  descnding
+
+
+
+*** limit ***
+
+SELECT * FROM <TABLE_NAME> LIMIT count;
+SELECT * FROM <TABLE_NAME> LIMIT start, end;
+SELECT * FROM <TABLE_NAME> ORDER BY <COLUMNS_NAME> DESC LIMIT count;
+
+*** search ***
+
+SELECT * FROM <TABLE_NAME> WHERE <COLUMNS_NAME> LIKE '%value%'; // anywhere
+
+SELECT * FROM <TABLE_NAME> WHERE <COLUMNS_NAME> LIKE 'value%'; // start with is value
+SELECT * FROM <TABLE_NAME> WHERE <COLUMNS_NAME> LIKE '%value'; // end value is
+
+SELECT * FROM <TABLE_NAME> WHERE <COLUMNS_NAME> LIKE '%'; // anythings
+SELECT * FROM <TABLE_NAME> WHERE <COLUMNS_NAME> LIKE '____'; // digit
+SELECT * FROM <TABLE_NAME> WHERE <COLUMNS_NAME> LIKE '%\%%'; // retrun percents
+SELECT * FROM <TABLE_NAME> WHERE <COLUMNS_NAME> LIKE '%\_%'; // retrun face_book
+SELECT * FROM <TABLE_NAME> WHERE <COLUMNS_NAME> LIKE '% %'; // retrun space
+
+** OPSITE OF LIKE ***
+SELECT * FROM <TABLE_NAME> WHERE <COLUMNS_NAME> NOT LIKE '%value%'; // anywhere
+
+
+***** aggregate function *****
+
+SELECT COUNT(*) FROM <TABLE_NAME>;
+
+SELECT COUNT(<COLUMNS_NAME>) FROM <TABLE_NAME>;
+
+SELECT COUNT(DISTINCT <COLUMNS_NAME>) FROM <TABLE_NAME>; // DISTINCT DON'T GIVE DUPLICAT NAME
+
+SELECT MIN(<COLUMNS_NAME>) FROM <TABLE_NAME>;
+
+SELECT MIX(<COLUMNS_NAME>) FROM <TABLE_NAME>;
+
+SELECT SUM(<COLUMNS_NAME>) FROM <TABLE_NAME>;
+
+SELECT avg(age) FROM CURD.curd;
+
+
+
+*** group by ***
+
+SELECT <COLUMNS_NAME> count(*)  FROM <TABLE_NAME> group by <COLUMNS_NAME>;
+
+SELECT <COLUMNS_NAME>, <COLUMNS_NAME>, Min(<COLUMNS_NAME>), COUNT(*) AS count FROM <TABLE_NAME> GROUP BY <COLUMNS_NAME>, <COLUMNS_NAME>;
+
+SELECT <COLUMNS_NAME>, <COLUMNS_NAME>, sum(<COLUMNS_NAME>), COUNT(*) AS count FROM <TABLE_NAME> GROUP BY <COLUMNS_NAME>, <COLUMNS_NAME>;
+
+SELECT <COLUMNS_NAME>, avg(<COLUMNS_NAME>), COUNT(*) AS count FROM <TABLE_NAME> GROUP BY <COLUMNS_NAME>;
+
+
+
+**** subquery ****
+
+SELECT * FROM <TABLE_NAME> WHERE <COLUMNS_NAME> = (
+SELECT MAX(<COLUMNS_NAME>) FROM <TABLE_NAME>
+)
+
+
+*** case condtion ***
+SELECT OrderID, Quantity,
+CASE
+    WHEN Quantity > 30 THEN "The quantity is greater than 30"
+    WHEN Quantity = 30 THEN "The quantity is 30"
+    ELSE "The quantity is under 30"
+END
+FROM OrderDetails;
+
+
+******* PROJECT ********
+CREATE TABLE customers(
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(100),
+    last_name VARCHAR(100),
+    email VARCHAR(100)
+)
+
+
+CREATE TABLE orders(
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    order_data DATE,
+    amount DECIMAL(8, 2),
+    customer_id INT,
+    FOREIGN KEY(customer_id) 
+        REFERENCES customers(id)
+        ON DELETE CASCADE
+)
+
+
+INSERT INTO customers (first_name, last_name, email) VALUES
+ ('Tom', 'George', 'george@gmail.com'),
+ ('George', 'Michael', 'gm@gmail.com'),
+ ('David', 'Bowie', 'david@gmail.com'),
+ ('Blue', 'Steele', 'blue@gmail.com')
+ 
+
+INSERT INTO orders(order_data, amount, customer_id) 
+VALUES ('2022/06/06', 33.44, 1)
+
+-- IMPLICIT INERJOIN --
+SELECT * FROM relationship.customers, relationship.orders WHERE customers.id = orders.customer_id;
+-- Explicit inner join --
+SELECT * FROM customers JOIN orders ON customers.id = orders.customer_id;
+SELECT customer_id, first_name, last_name FROM customers JOIN orders ON customers.id = orders.customer_id GROUP BY orders.customer_id;
+
+-- left join ---
+SELECT first_name, last_name, ifnull(SUM(amount), 0) FROM customers left JOIN orders ON customers.id = orders.customer_id GROUP BY customers.id;
+
+
+
+*** simple project ***
+
+create table reviewers(
+	id int auto_increment primary key,
+    first_name varchar(100),
+    last_name varchar(100)
+)
+
+create table series(
+	id int auto_increment primary key,
+    title varchar(100),
+    released_year year(4),
+    genre varchar(100)
+)
+
+create table reviews(
+	id int auto_increment primary key,
+    rating decimal(2,1),
+    series_id int,
+    reviewer_id int,
+    foreign key(series_id) references series(id) on delete cascade,
+    foreign key(reviewer_id) references reviewers(id) on delete cascade
+)
+
+
+INSERT INTO series (title, released_year, genre) VALUES
+    ('Archer', 2009, 'Animation'),
+    ('Arrested Development', 2003, 'Comedy'),
+    ("Bob's Burgers", 2011, 'Animation'),
+    ('Bojack Horseman', 2014, 'Animation'),
+    ("Breaking Bad", 2008, 'Drama'),
+    ('Curb Your Enthusiasm', 2000, 'Comedy'),
+    ("Fargo", 2014, 'Drama'),
+    ('Freaks and Geeks', 1999, 'Comedy'),
+    ('General Hospital', 1963, 'Drama'),
+    ('Halt and Catch Fire', 2014, 'Drama'),
+    ('Malcolm In The Middle', 2000, 'Comedy'),
+    ('Pushing Daisies', 2007, 'Comedy'),
+    ('Seinfeld', 1989, 'Comedy'),
+    ('Stranger Things', 2016, 'Drama');
+
+
+INSERT INTO reviewers (first_name, last_name) VALUES
+    ('Thomas', 'Stoneman'),
+    ('Wyatt', 'Skaggs'),
+    ('Kimbra', 'Masters'),
+    ('Domingo', 'Cortes'),
+    ('Colt', 'Steele'),
+    ('Pinkie', 'Petit'),
+    ('Marlon', 'Crafford');
+
+INSERT INTO reviews(series_id, reviewer_id, rating) VALUES
+    (1,1,8.0),(1,2,7.5),(1,3,8.5),(1,4,7.7),(1,5,8.9),
+    (2,1,8.1),(2,4,6.0),(2,3,8.0),(2,6,8.4),(2,5,9.9),
+    (3,1,7.0),(3,6,7.5),(3,4,8.0),(3,3,7.1),(3,5,8.0),
+    (4,1,7.5),(4,3,7.8),(4,4,8.3),(4,2,7.6),(4,5,8.5),
+    (5,1,9.5),(5,3,9.0),(5,4,9.1),(5,2,9.3),(5,5,9.9),
+    (6,2,6.5),(6,3,7.8),(6,4,8.8),(6,2,8.4),(6,5,9.1),
+    (7,2,9.1),(7,5,9.7),
+    (8,4,8.5),(8,2,7.8),(8,6,8.8),(8,5,9.3),
+    (9,2,5.5),(9,3,6.8),(9,4,5.8),(9,6,4.3),(9,5,4.5),
+    (10,5,9.9),
+    (13,3,8.0),(13,4,7.2),
+    (14,2,8.5),(14,3,8.9),(14,4,8.9);
+
+
+select title, rating from series join reviews on series.id = reviews.series_id;
+
+select title, avg(rating) as avg_rating from series join reviews on series.id = reviews.series_id group by title order by avg_rating;
+
+select first_name, last_name, avg(rating) as avg_rating from reviewers join reviews on reviewers.id = reviews.reviewer_id group by reviews.reviewer_id order by avg_rating;
+
+select title as unreiviewed_series from series left join reviews on series.id = reviews.series_id where rating is null;
+
+select genre, avg(rating) as avg_rating from series join reviews on series.id = reviews.series_id group by genre;
+select genre, round(avg(rating),2) as avg_rating from series join reviews on series.id = reviews.series_id group by genre;
+
+select 
+		first_name, 
+        last_name, 
+        count(rating), 
+        ifnull(min(rating),0), 
+        ifnull(max(rating),0), 
+        ifnull(avg(rating), 0),
+        case
+			when count(rating) >= 1 then 'Active'
+            else 'Inacitive'
+        end as status
+from reviewers 
+	left join reviews 
+    on reviewers.id = reviews.reviewer_id 
+group by reviewers.id;
+
+
+
+select title, rating, concat(first_name,' ', last_name) as reviewer
+from reviewers 
+	inner join reviews 
+		on reviewers.id = reviews.reviewer_id
+    inner join series on series.id = reviews.series_id;
+
+
+
+***************** Instagram clone ********************
+create database Instagram;
+
+use Instagram;
+
+create table users(
+	id int auto_increment primary key,
+    username varchar(255) unique not null,
+    created_at timestamp default now()
+)
+
+insert into users(username) values ('BlueTheCat'), ('charlieBrown'),('ColtSteele')
+
+create table photos (
+	id int auto_increment primary key,
+    image_url varchar(255) not null,
+    user_id int not null,
+    created_at timestamp default now(),
+    foreign key(user_id) references users(id)
+)
+
+insert into photos (image_url, user_id) values ('/url/asdf/', 1), ('/url/asdf/', 2),('/url/asdf/', 3)
+
+create table comments(
+	id int auto_increment primary key,
+    comment_text varchar(255) not null,
+    user_id int not null,
+    photo_id int not null,
+    created_at timestamp default now(),
+    foreign key(user_id) references users(id),
+    foreign key(photo_id) references photos(id)
+)
+
+insert into comments(comment_text, user_id, photo_id)  values ('Meow', 1, 2),
+('Amazing shot', 3, 2),('I am 2', 2, 1)
+
+create table likes(
+    user_id int not null,
+    photo_id int not null,
+    created_at timestamp default now(),
+    foreign key(user_id) references users(id),
+    foreign key(photo_id) references photos(id),
+    primary key(user_id, photo_id)
+)
+
+insert into likes(user_id, photo_id) values
+(1,1),
+(2,1),
+(1,2),
+(1,3),
+(3,3)
+
+
+create table follows(
+    follower_id int not null,
+    followee_id int not null,
+    created_at timestamp default now(),
+    foreign key(follower_id) references users(id),
+    foreign key(followee_id) references users(id),
+    primary key(follower_id, followee_id)
+)
+
+insert into follows (follower_id, followee_id) values
+(1,2),
+(1,3),
+(3,1)
+
+
+create table tags(
+	id int auto_increment primary key,
+    tag_name varchar(255) unique,
+	created_at timestamp default now()
+    )
+
+    insert into tags (tag_name) values ('cute'), ('sun'), ('adorable')
+
+
+create table photo_tags(
+	photo_id int not null,
+    tag_id int not null,
+	created_at timestamp default now(),
+    foreign key(photo_id) references photos(id),
+    foreign key(tag_id) references tags(id),
+    primary key(photo_id, tag_id)
+    )
+
+insert into photo_tags (photo_id,tag_id ) values (1,1), (1,2),(2,3)
+
+SELECT username, photos.id, photos.image_url, count(*) as total 
+FROM Instagram.photos 
+inner join likes on likes.photo_id = photos.id 
+inner join users on photos.user_id = users.id
+group by photos.id
+order by total desc
